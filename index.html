@@ -45,7 +45,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+      background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
         url("AB2FE015-9807-447D-8FA0-5A21FBA51F08_1_105_c.jpeg");
       background-size: cover;
       background-position: center;
@@ -59,12 +59,13 @@
 
     .pre-intro-content {
       text-align: center;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.3);
       padding: 40px;
       border-radius: 30px;
       border: 5px solid gold;
       max-width: 600px;
       box-shadow: 0 0 40px gold;
+      backdrop-filter: blur(10px);
     }
 
     .pre-intro-content h1 {
@@ -184,15 +185,69 @@
     .message-card {
       cursor: pointer;
       transition: transform 0.3s ease;
+      perspective: 1000px;
     }
 
     .message-card:hover {
       transform: scale(1.02);
     }
 
+    #message-front {
+      animation: cardOpen 0.8s ease forwards;
+      transform-origin: left center;
+    }
+
     #message-back {
       display: none;
-      margin-top: 10px;
+      animation: cardReveal 1.2s ease forwards;
+    }
+
+    #message-back h2 {
+      animation: textReveal 1.5s ease forwards;
+      opacity: 0;
+    }
+
+    #message-back .message-image {
+      animation: textReveal 1.8s ease forwards;
+      opacity: 0;
+    }
+
+    #message-back p {
+      animation: textReveal 2.1s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes cardOpen {
+      0% {
+        transform: rotateY(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: rotateY(-180deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes cardReveal {
+      0% {
+        opacity: 0;
+        transform: rotateY(180deg);
+      }
+      100% {
+        opacity: 1;
+        transform: rotateY(0deg);
+      }
+    }
+
+    @keyframes textReveal {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .message-image {
@@ -220,6 +275,24 @@
       transform: scale(1.1);
     }
 
+    .sheep-card {
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)),
+        url("2DE88288-5692-4911-A0A8-B66EDB6636A3_1_105_c.jpeg");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .sheep-card h2 {
+      margin-bottom: 30px;
+      font-size: 32px;
+    }
+
     .gallery {
       display: flex;
       justify-content: center;
@@ -229,13 +302,7 @@
     }
 
     .gallery img {
-      width: 250px;
-      height: 250px;
-      object-fit: cover;
-      border-radius: 20px;
-      border: 5px solid white;
-      box-shadow: 0 0 20px red;
-      display: block;
+      display: none;
     }
 
     .item {
@@ -322,7 +389,7 @@
         </div>
       </div>
 
-      <div class="card">
+      <div class="card sheep-card">
         <h2>Us watching the sheep detective</h2>
         <div class="gallery">
           <img src="2DE88288-5692-4911-A0A8-B66EDB6636A3_1_105_c.jpeg" alt="Us together" />
@@ -437,7 +504,7 @@
       }
     }
 
-    setInterval(() => {
+    let floatingInterval = setInterval(() => {
       const item = document.createElement("div");
       const icons = ["⭐", "🏎️", "🎁", "🍄", "🎈"];
       item.textContent = icons[Math.floor(Math.random() * icons.length)];
