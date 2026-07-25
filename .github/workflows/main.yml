@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Klaudia's Birthday Grand Prix 🏁</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:linear-gradient(#64c7ff,#9cff9c 45%,#222 45%);
+color:white;
+text-align:center;
+overflow-x:hidden;
+}
+
+/* Road */
+body:before{
+content:"";
+position:fixed;
+bottom:0;
+left:0;
+height:45%;
+width:100%;
+background:
+repeating-linear-gradient(
+90deg,
+#333 0px,
+#333 70px,
+#444 70px,
+#444 140px
+);
+z-index:-1;
+}
+
+/* Intro Overlay */
+#intro-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100vw;
+height:100vh;
+background:#111;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:9999;
+transition:opacity 0.8s ease;
+}
+
+#intro-content{
+font-size:4rem;
+font-weight:bold;
+color:#ffd700;
+text-shadow: 3px 3px red, 6px data black;
+}
+
+/* Main Content Wrapper (Hidden initially for countdown) */
+#main-wrapper{
+display:none;
+}
+
+/* Header */
+.hero{
+padding:40px 20px;
+min-height:100vh;
+}
+
+h1{
+font-size:55px;
+color:#ffd700;
+text-shadow:
+4px 4px red,
+7px 7px black;
+}
+
+.subtitle{
+font-size:25px;
+margin:20px;
+}
+
+/* Cards */
+.card{
+background:rgba(0,0,0,0.65);
+margin:30px auto;
+padding:30px;
+max-width:800px;
+border-radius:25px;
+border:4px solid gold;
+box-shadow:0 0 25px gold;
+}
+
+button{
+background:#00c853;
+color:white;
+padding:15px 35px;
+border:none;
+border-radius:15px;
+font-size:20px;
+font-weight:bold;
+cursor:pointer;
+box-shadow:0 5px #006b2d;
+}
+
+button:hover{
+transform:scale(1.1);
+}
+
+/* Gallery */
+.gallery{
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.gallery img{
+width:250px;
+height:250px;
+object-fit:cover;
+border-radius:20px;
+border:5px solid white;
+box-shadow:0 0 20px red;
+}
+
+/* Floating items */
+.item{
+position:fixed;
+font-size:35px;
+animation:float 5s infinite;
+}
+
+@keyframes float{
+0%{
+bottom:-10%;
+opacity:0;
+}
+50%{
+opacity:1;
+}
+100%{
+bottom:110%;
+opacity:0;
+}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- Background Audio -->
+<audio id="birthday-audio" loop>
+    <source src="birthday-song.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Countdown / Intro Overlay -->
+<div id="intro-overlay">
+    <div id="intro-content">
+        🏁 BIRTHDAY GRAND PRIX 🏁<br>
+        <span style="font-size: 2rem; color: #fff;">READY KLAUDIA?</span><br>
+        <button onclick="startRace()" style="margin-top: 30px;">START ENGINE 🏎️</button>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div id="main-wrapper">
+<div class="hero">
+
+<h1>🏁 Klaudia's Birthday Grand Prix 🏎️</h1>
+
+<div class="subtitle">
+🎂 30 July Birthday Race 🎂
+</div>
+
+<div class="card">
+<h2>⭐ Welcome Racer Klaudia ⭐</h2>
+<p>
+Today is your special race day!  
+May your year be filled with happiness,
+fun adventures, and amazing memories.
+</p>
+<br>
+<button onclick="openGift()">
+🎁 Open Mystery Box
+</button>
+<p id="gift"></p>
+</div>
+
+<div class="card">
+<h2>💌 A Message For You</h2>
+<p>
+Happy birthday Cloudy, I know I haven’t been around you in a while but apart from the up’s and down’s. 
+I wish you have a wonderful day, you will find your gift in your locker, and I wish I could meet you but unfortunately you won’t so. 
+Have good day.
+</p>
+</div>
+
+<div class="card">
+<h2>🏆 Today’s Champion: Klaudia 🏆</h2>
+<div class="gallery">
+<img src="images/￼" alt="Zootopia">
+<img src="images/￼" alt="Shrek">
+</div>
+</div>
+
+<div class="card">
+<h2>🎬 Final Lap</h2>
+<p>
+Klaudia, today you are the champion!  
+Enjoy your birthday and your surprise waiting in the locker 🎁
+</p>
+</div>
+
+</div>
+</div>
+
+<script>
+function startRace(){
+    let intro = document.getElementById("intro-content");
+    let audio = document.getElementById("birthday-audio");
+    
+    // Play background music safely
+    audio.play().catch(e => console.log("Audio autoplay restricted"));
+
+    intro.innerHTML = "3...";
+    setTimeout(() => {
+        intro.innerHTML = "2...";
+    }, 1000);
+    setTimeout(() => {
+        intro.innerHTML = "1...";
+    }, 2000);
+    setTimeout(() => {
+        intro.innerHTML = "🏎️ GO!!!";
+    }, 3000);
+    setTimeout(() => {
+        document.getElementById("intro-overlay").style.opacity = "0";
+        setTimeout(() => {
+            document.getElementById("intro-overlay").style.display = "none";
+            document.getElementById("main-wrapper").style.display = "block";
+        }, 800);
+    }, 4000);
+}
+
+function openGift(){
+document.getElementById("gift").innerHTML =
+"<br>🏆 🎁 MYSTERY BOX UNLOCKED 🎁 🏆<br><br>" +
+"Your gift is waiting in your locker 💝";
+}
+
+setInterval(()=>{
+let item=document.createElement("div");
+let icons=["⭐","🍄","🏎️","🎁","❤️"];
+item.innerHTML=icons[Math.floor(Math.random()*icons.length)];
+item.className="item";
+item.style.left=Math.random()*100+"%";
+document.body.appendChild(item);
+
+setTimeout(()=>{
+item.remove();
+},5000);
+},700);
+</script>
+
+</body>
+</html>
