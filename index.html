@@ -1,510 +1,455 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Klaudia's Birthday Grand Prix</title>
 
-<title>Klaudia's Birthday Grand Prix</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+    }
 
-<style>
+    body {
+      background: linear-gradient(#64c7ff, #9cff9c 45%, #222 45%);
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+    }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Segoe UI',sans-serif;
-}
+    /* Road */
+    body::before {
+      content: "";
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 45%;
+      width: 100%;
+      background: repeating-linear-gradient(
+        90deg,
+        #333 0px,
+        #333 70px,
+        #444 70px,
+        #444 140px
+      );
+      z-index: -1;
+    }
 
-body{
-background:linear-gradient(#64c7ff,#9cff9c 45%,#222 45%);
-color:white;
-text-align:center;
-overflow-x:hidden;
-}
+    /* Pre-Intro Page */
+    #pre-intro-page {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+        url("AB2FE015-9807-447D-8FA0-5A21FBA51F08_1_105_c.jpeg");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      transition: opacity 0.8s ease;
+    }
 
-/* Road */
-body:before{
-content:"";
-position:fixed;
-bottom:0;
-left:0;
-height:45%;
-width:100%;
-background:
-repeating-linear-gradient(
-90deg,
-#333 0px,
-#333 70px,
-#444 70px,
-#444 140px
-);
-z-index:-1;
-}
+    .pre-intro-content {
+      text-align: center;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 40px;
+      border-radius: 30px;
+      border: 5px solid gold;
+      max-width: 600px;
+      box-shadow: 0 0 40px gold;
+    }
 
-/* Pre-Intro Page with Mario Kart Background */
-#pre-intro-page {
-position: fixed;
-top: 0;
-left: 0;
-width: 100vw;
-height: 100vh;
-background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('AB2FE015-9807-447D-8FA0-5A21FBA51F08_1_105_c.jpeg');
-background-size: cover;
-background-position: center;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-z-index: 10000;
-transition: opacity 0.8s ease;
-}
+    .pre-intro-content h1 {
+      font-size: 32px;
+      color: #ffd700;
+      text-shadow: 3px 3px red, 6px 6px black;
+      margin-bottom: 20px;
+    }
 
-#pre-intro-page.mario-bg {
-background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('AB2FE015-9807-447D-8FA0-5A21FBA51F08_1_105_c.jpeg');
-background-size: cover;
-background-position: center;
-}
+    .pre-intro-content p {
+      font-size: 24px;
+      margin: 20px 0;
+      color: #fff;
+    }
 
-.pre-intro-content {
-text-align: center;
-background: rgba(0,0,0,0.8);
-padding: 40px;
-border-radius: 30px;
-border: 5px solid gold;
-max-width: 600px;
-box-shadow: 0 0 40px gold;
-}
+    .question-box {
+      background: rgba(255, 192, 203, 0.2);
+      border: 3px solid #ff69b4;
+      border-radius: 20px;
+      padding: 30px;
+      margin: 30px 0;
+    }
 
-.pre-intro-content h1 {
-font-size: 32px;
-color: #ffd700;
-text-shadow: 3px 3px red, 6px 6px black;
-margin-bottom: 20px;
-}
+    .question-box h2 {
+      font-size: 28px;
+      color: #ff69b4;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px black;
+    }
 
-.pre-intro-content p {
-font-size: 24px;
-margin: 20px 0;
-color: #fff;
-}
+    .answer-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
 
-.question-box {
-background: rgba(255, 192, 203, 0.2);
-border: 3px solid #ff69b4;
-border-radius: 20px;
-padding: 30px;
-margin: 30px 0;
-}
+    .answer-btn {
+      background: #00c853;
+      color: white;
+      padding: 15px 30px;
+      border: 3px solid gold;
+      border-radius: 15px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 5px #006b2d;
+      transition: all 0.3s ease;
+    }
 
-.question-box h2 {
-font-size: 28px;
-color: #ff69b4;
-margin-bottom: 20px;
-text-shadow: 2px 2px black;
-}
+    .answer-btn:hover {
+      transform: scale(1.1);
+    }
 
-.answer-buttons {
-display: flex;
-justify-content: center;
-gap: 20px;
-flex-wrap: wrap;
-}
+    /* Intro Overlay */
+    #intro-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #111;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease;
+      background-size: cover;
+      background-position: center;
+      opacity: 1;
+    }
 
-.answer-btn {
-background: #00c853;
-color: white;
-padding: 15px 30px;
-border: 3px solid gold;
-border-radius: 15px;
-font-size: 20px;
-font-weight: bold;
-cursor: pointer;
-box-shadow: 0 5px #006b2d;
-transition: all 0.3s ease;
-}
+    #intro-content {
+      font-size: 4rem;
+      font-family: "Times New Roman", serif;
+      color: #ffd700;
+      text-shadow: 3px 3px red, 6px 6px black;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      line-height: 1.2;
+    }
 
-.answer-btn:hover {
-transform: scale(1.1);
-}
+    /* Main Content Wrapper */
+    #main-wrapper {
+      display: none;
+    }
 
-.answer-btn.yes-grow {
-animation: growYes 0.5s ease forwards;
-}
+    .hero {
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
 
-@keyframes growYes {
-0% { transform: scale(1); }
-50% { transform: scale(1.3); }
-100% { transform: scale(2); }
-}
+    h1 {
+      font-size: 55px;
+      color: #ffd700;
+      text-shadow: 4px 4px red, 7px 7px black;
+    }
 
-/* Intro Overlay */
-#intro-overlay{
-position:fixed;
-top:0;
-left:0;
-width:100vw;
-height:100vh;
-background:#111;
-display:none;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-z-index:9999;
-transition:opacity 0.8s ease;
-background-size: cover;
-background-position: center;
-}
+    .subtitle {
+      font-size: 25px;
+      margin: 20px;
+    }
 
-#intro-content{
-font-size:4rem;
-font-weight:Times new roman;
-color:#ffd700;
-text-shadow: 3px 3px red, 6px 6px transparent;
-text-align: center;
-position: relative;
-z-index: 1;
-}
+    .card,
+    .message-card {
+      background: rgba(0, 0, 0, 0.75);
+      margin: 30px auto;
+      padding: 30px;
+      max-width: 800px;
+      border-radius: 25px;
+      border: 4px solid gold;
+      box-shadow: 0 0 25px gold;
+    }
 
-/* Main Content Wrapper (Hidden initially for countdown) */
-#main-wrapper{
-display:none;
-}
+    .message-card {
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
 
-/* Header */
-.hero{
-padding:40px 20px;
-min-height:100vh;
-}
+    .message-card:hover {
+      transform: scale(1.02);
+    }
 
-h1{
-font-size:55px;
-color:#ffd700;
-text-shadow:
-4px 4px red,
-7px 7px black;
-}
+    #message-back {
+      display: none;
+      margin-top: 10px;
+    }
 
-.subtitle{
-font-size:25px;
-margin:20px;
-}
+    .message-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 15px;
+      border: 3px solid gold;
+      margin: 15px 0;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+    }
 
-/* Cards */
-.card{
-background:rgba(0,0,0,0.65);
-margin:30px auto;
-padding:30px;
-max-width:800px;
-border-radius:25px;
-border:4px solid gold;
-box-shadow:0 0 25px gold;
-}
+    button {
+      background: #00c853;
+      color: white;
+      padding: 15px 35px;
+      border: none;
+      border-radius: 15px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 5px #006b2d;
+    }
 
-button{
-background:#00c853;
-color:white;
-padding:15px 35px;
-border:none;
-border-radius:15px;
-font-size:20px;
-font-weight:bold;
-cursor:pointer;
-box-shadow:0 5px #006b2d;
-}
+    button:hover {
+      transform: scale(1.1);
+    }
 
-button:hover{
-transform:scale(1.1);
-}
+    .gallery {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
 
-/* Message Card Interactive Styles */
-.message-card {
-background: rgba(0,0,0,0.75);
-margin: 30px auto;
-padding: 30px;
-max-width: 800px;
-border-radius: 25px;
-border: 4px solid gold;
-box-shadow: 0 0 25px gold;
-cursor: pointer;
-transition: transform 0.3s ease;
-}
+    .gallery img {
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 20px;
+      border: 5px solid white;
+      box-shadow: 0 0 20px red;
+      display: block;
+    }
 
-.message-card:hover {
-transform: scale(1.02);
-}
+    .item {
+      position: fixed;
+      font-size: 28px;
+      animation: float 5s linear forwards;
+      pointer-events: none;
+      z-index: 1000;
+    }
 
-#message-back {
-display: none;
-margin-top: 10px;
-}
-
-.message-image {
-max-width: 100%;
-height: auto;
-border-radius: 15px;
-border: 3px solid gold;
-margin: 15px 0;
-box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-}
-
-/* Gallery */
-.gallery{
-display:flex;
-justify-content:center;
-gap:20px;
-flex-wrap:wrap;
-}
-
-.gallery-item{
-width:250px;
-height:250px;
-border-radius:20px;
-border:5px solid white;
-box-shadow:0 0 20px red;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:80px;
-background:rgba(0,0,0,0.3);
-}
-
-/* Floating items */
-.item{
-position:fixed;
-font-size:35px;
-animation:float 5s infinite;
-}
-
-@keyframes float{
-0%{
-bottom:-10%;
-opacity:0;
-}
-50%{
-opacity:1;
-}
-100%{
-bottom:110%;
-opacity:0;
-}
-}
-
-</style>
-
+    @keyframes float {
+      0% {
+        bottom: -10%;
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        bottom: 110%;
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 
 <body>
-
-<!-- Pre-Intro Page with Birthday Photo Background -->
-<div id="pre-intro-page" class="mario-bg">
+  <!-- Pre-Intro -->
+  <div id="pre-intro-page">
     <div class="pre-intro-content">
-        <h1>BIRTHDAY SURPRISE</h1>
-        <p>I know I didn't prepare a card but here we go ! </p>
-        
-        <div class="question-box">
-            <h2>Aren't you a crazy one?</h2>
-            <div class="answer-buttons">
-                <button class="answer-btn" onclick="answerNo()">No</button>
-                <button class="answer-btn" onclick="answerYes()">Yes</button>
-                <button class="answer-btn" id="grow-yes" style="display:none;" onclick="answerYes()">Yes</button>
-            </div>
+      <h1>BIRTHDAY SURPRISE</h1>
+      <p>I know I didn't prepare a card but here we go!</p>
+
+      <div class="question-box">
+        <h2>Aren't you a crazy one?</h2>
+        <div class="answer-buttons">
+          <button class="answer-btn" id="no-btn" onclick="answerNo()">No</button>
+          <button class="answer-btn" id="yes-btn" onclick="answerYes()">Yes</button>
+          <button class="answer-btn" id="grow-yes" style="display:none;" onclick="answerYes()">Yes</button>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<!-- Countdown / Intro Overlay -->
-<div id="intro-overlay">
+  <!-- Intro Overlay -->
+  <div id="intro-overlay">
     <div id="intro-content">
-        BIRTHDAY GRAND PRIX<br>
-        <span style="font-size: 2rem; color: #fff;">ARE READY KLAUDIA</span><br>
-        <button onclick="startRace()" style="margin-top: 30px;">START ENGINE</button>
+      BIRTHDAY GRAND PRIX<br />
+      <span style="font-size: 2rem; color: #fff;">ARE YOU READY KLAUDIA</span><br />
+      <button onclick="startRace()" style="margin-top: 30px;">START ENGINE</button>
     </div>
-</div>
+  </div>
 
-<!-- Main Content -->
-<div id="main-wrapper">
-<div class="hero">
+  <!-- Main Content -->
+  <div id="main-wrapper">
+    <div class="hero">
+      <h1>Klaudia's 24th Birthday</h1>
 
-<h1>Klaudia's 24th Birthday </h1>
+      <div class="subtitle">30 July Birthday Race</div>
 
-<div class="subtitle">
-30 July Birthday Race
-</div>
-
-<div class="card">
-<h2>Welcome Racer Klaudia</h2>
-<p>
-Today is your special day!  
-May your year be filled with happiness,
-fun adventures, and amazing memories.
-</p>
-<br>
-<button onclick="openGift()">
-Open Mystery Box
-</button>
-<p id="gift"></p>
-</div>
-
-<div class="message-card" onclick="openMessage()">
-
-    <div id="message-front">
-        <br>
-        <h2>Click to Open Your Message</h2>
-        <p>Birthday Letter Inside</p>
-    </div>
-
-    <div id="message-back">
-        <h2>A Message For You</h2>
-        <img src="07EEFC71-BCE4-46E2-8BD0-826F38479E9F_1_105_c.jpeg" alt="Birthday Message Photo" class="message-image">
+      <div class="card">
+        <h2>Welcome Racer Klaudia</h2>
         <p>
-        Happy birthday Cloudy, I know I haven't been around you in a while 
-        but apart from the up's and down's. 
-
-        I wish you have a wonderful day, you will find your gift in your locker, 
-        and I wish I could meet you .
-
-        Have a good day , 
+          Today is your special day!<br />
+          May your year be filled with happiness, fun adventures, and amazing memories.
         </p>
+        <br />
+        <button onclick="openGift()">Open Mystery Box</button>
+        <p id="gift"></p>
+      </div>
+
+      <div class="message-card" onclick="openMessage()">
+        <div id="message-front">
+          <h2>Click to Open Your Message</h2>
+          <p>Birthday Letter Inside</p>
+        </div>
+
+        <div id="message-back">
+          <h2>A Message For You</h2>
+          <img src="07EEFC71-BCE4-46E2-8BD0-826F38479E9F_1_105_c.jpeg" alt="Birthday Message Photo" class="message-image" />
+          <p>
+            Happy birthday Cloudy, I know I haven't been around you in a while,
+            but apart from the ups and downs, I wish you have a wonderful day.
+            You will find your gift in your locker, and I wish I could meet you.
+            Have a good day.
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Us watching the sheep detective</h2>
+        <div class="gallery">
+          <img src="2DE88288-5692-4911-A0A8-B66EDB6636A3_1_105_c.jpeg" alt="Us together" />
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Final Lap</h2>
+        <p>
+          Klaudia, I Miss You!<br />
+          Enjoy your birthday and your surprise waiting in the locker.
+        </p>
+      </div>
     </div>
+  </div>
 
-</div>
+  <script>
+    let countdownStarted = false;
 
-<div class="card">
-<h2>Us watching the sheep detective</h2>
-<div class="gallery">
-<img src="2DE88288-5692-4911-A0A8-B66EDB6636A3_1_105_c.jpeg" alt=us together" > 
-<p>
-</div>
+    function answerNo() {
+      document.getElementById("grow-yes").style.display = "inline-block";
+      document.getElementById("no-btn").style.display = "none";
+      document.getElementById("yes-btn").style.display = "none";
+    }
 
-<div class="card">
-<h2>Final Lap</h2>
-<p>
-Klaudia, I Miss You !  
-Enjoy your birthday and your surprise waiting in the locker
-</p>
-</div>
+    function answerYes() {
+      const preIntro = document.getElementById("pre-intro-page");
+      preIntro.style.opacity = "0";
+      setTimeout(() => {
+        preIntro.style.display = "none";
+        const overlay = document.getElementById("intro-overlay");
+        overlay.style.display = "flex";
+        overlay.style.opacity = "1";
+      }, 800);
+    }
 
-</div>
-</div>
+    function startRace() {
+      startCountdown();
+    }
 
-<script>
-function answerNo(){
-    // Show the growing "Yes" button
-    document.getElementById('grow-yes').style.display = 'block';
-    document.querySelectorAll('.answer-btn')[0].style.display = 'none'; // Hide "No"
-    document.querySelectorAll('.answer-btn')[1].style.display = 'none'; // Hide first "Yes"
-}
+    function startCountdown() {
+      if (countdownStarted) return;
+      countdownStarted = true;
 
-function answerYes(){
-    // Go to countdown
-    document.getElementById('pre-intro-page').style.opacity = '0';
-    setTimeout(() => {
-        document.getElementById('pre-intro-page').style.display = 'none';
-        document.getElementById('intro-overlay').style.display = 'flex';
-        startCountdown();
-    }, 800);
-}
+      const intro = document.getElementById("intro-content");
+      const overlay = document.getElementById("intro-overlay");
 
-function startCountdown(){
-    let intro = document.getElementById("intro-content");
-    let overlay = document.getElementById("intro-overlay");
-    
-    // Play birthday song as Web Audio (no external file needed)
-    playBirthdayTone();
+      playBirthdayTone();
 
-    // Show first countdown number (3)
-    intro.innerHTML = "3...";
-    overlay.style.backgroundImage = "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('07BAE871-FA2A-4063-B022-C4BAD38B1A71_4_5005_c.jpeg')";
-    
-    setTimeout(() => {
-        intro.innerHTML = "2...";
-        overlay.style.backgroundImage = "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('07BAE871-FA2A-4063-B022-C4BAD38B1A71_4_5005_c.jpeg')";
-    }, 1000);
-    
-    setTimeout(() => {
-        intro.innerHTML = "1...";
-        overlay.style.backgroundImage = "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('07BAE871-FA2A-4063-B022-C4BAD38B1A71_4_5005_c.jpeg')";
-    }, 2000);
-    
-    setTimeout(() => {
-        intro.innerHTML = "GO!!!";
-        overlay.style.backgroundImage = "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('07BAE871-FA2A-4063-B022-C4BAD38B1A71_4_5005_c.jpeg')";
-    }, 3000);
-    
-    setTimeout(() => {
-        document.getElementById("intro-overlay").style.opacity = "0";
+      const bg = "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('07BAE871-FA2A-4063-B022-C4BAD38B1A71_4_5005_c.jpeg')";
+      overlay.style.backgroundImage = bg;
+
+      intro.innerHTML = "3...";
+      setTimeout(() => (intro.innerHTML = "2..."), 1000);
+      setTimeout(() => (intro.innerHTML = "1..."), 2000);
+      setTimeout(() => (intro.innerHTML = "GO!!!"), 3000);
+
+      setTimeout(() => {
+        overlay.style.opacity = "0";
         setTimeout(() => {
-            document.getElementById("intro-overlay").style.display = "none";
-            document.getElementById("main-wrapper").style.display = "block";
+          overlay.style.display = "none";
+          document.getElementById("main-wrapper").style.display = "block";
         }, 800);
-    }, 4000);
-}
+      }, 4000);
+    }
 
-function startRace(){
-    startCountdown();
-}
-
-function playBirthdayTone(){
-    try {
+    function playBirthdayTone() {
+      try {
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         const notes = [
-            {freq: 261.63, duration: 0.3},
-            {freq: 261.63, duration: 0.3},
-            {freq: 293.66, duration: 0.6},
-            {freq: 261.63, duration: 0.6},
-            {freq: 349.23, duration: 0.6},
-            {freq: 329.63, duration: 1.2}
+          { freq: 261.63, duration: 0.3 },
+          { freq: 261.63, duration: 0.3 },
+          { freq: 293.66, duration: 0.6 },
+          { freq: 261.63, duration: 0.6 },
+          { freq: 349.23, duration: 0.6 },
+          { freq: 329.63, duration: 1.2 }
         ];
-        
+
         let currentTime = audioContext.currentTime;
-        notes.forEach(note => {
-            const osc = audioContext.createOscillator();
-            const gain = audioContext.createGain();
-            osc.connect(gain);
-            gain.connect(audioContext.destination);
-            osc.frequency.value = note.freq;
-            gain.gain.setValueAtTime(0.3, currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, currentTime + note.duration);
-            osc.start(currentTime);
-            osc.stop(currentTime + note.duration);
-            currentTime += note.duration;
+        notes.forEach((note) => {
+          const osc = audioContext.createOscillator();
+          const gain = audioContext.createGain();
+          osc.connect(gain);
+          gain.connect(audioContext.destination);
+          osc.frequency.value = note.freq;
+          gain.gain.setValueAtTime(0.3, currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.01, currentTime + note.duration);
+          osc.start(currentTime);
+          osc.stop(currentTime + note.duration);
+          currentTime += note.duration;
         });
-    } catch(e) {
+      } catch (e) {
         console.log("Audio not available");
+      }
     }
-}
 
-function openGift(){
-document.getElementById("gift").innerHTML =
-"<br>MYSTERY BOX UNLOCKED<br><br>" +
-"Your gift is waiting in your locker";
-}
+    function openGift() {
+      document.getElementById("gift").innerHTML =
+        "<br>MYSTERY BOX UNLOCKED<br><br>Your gift is waiting in your locker";
+    }
 
-function openMessage(){
-    let front = document.getElementById("message-front");
-    let back = document.getElementById("message-back");
-    if(front.style.display !== "none"){
+    function openMessage() {
+      const front = document.getElementById("message-front");
+      const back = document.getElementById("message-back");
+
+      if (front.style.display !== "none") {
         front.style.display = "none";
         back.style.display = "block";
-    } else {
+      } else {
         front.style.display = "block";
         back.style.display = "none";
+      }
     }
-}
 
-setInterval(()=>{
-let item=document.createElement("div");
-let icons=["*","#","RCar","Gift","Heart"];
-item.innerHTML=icons[Math.floor(Math.random()*icons.length)];
-item.className="item";
-item.style.left=Math.random()*100+"%";
-document.body.appendChild(item);
+    setInterval(() => {
+      const item = document.createElement("div");
+      const icons = ["⭐", "🏎️", "🎁", "🍄"];
+      item.textContent = icons[Math.floor(Math.random() * icons.length)];
+      item.className = "item";
+      item.style.left = Math.random() * 100 + "%";
+      document.body.appendChild(item);
 
-setTimeout(()=>{
-item.remove();
-},5000);
-},700);
-</script>
-
+      setTimeout(() => item.remove(), 5000);
+    }, 700);
+  </script>
 </body>
 </html>
