@@ -151,6 +151,8 @@ justify-content:center;
 align-items:center;
 z-index:9999;
 transition:opacity 0.8s ease;
+background-size: cover;
+background-position: center;
 }
 
 #intro-content{
@@ -158,6 +160,9 @@ font-size:4rem;
 font-weight:bold;
 color:#ffd700;
 text-shadow: 3px 3px red, 6px 6px black;
+text-align: center;
+position: relative;
+z-index: 1;
 }
 
 /* Main Content Wrapper (Hidden initially for countdown) */
@@ -405,20 +410,30 @@ function answerYes(){
 
 function startCountdown(){
     let intro = document.getElementById("intro-content");
+    let overlay = document.getElementById("intro-overlay");
     
     // Play birthday song as Web Audio (no external file needed)
     playBirthdayTone();
 
+    // Show first countdown number (3)
     intro.innerHTML = "3...";
+    overlay.style.backgroundImage = "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('FC3EA21D-6A62-480D-9252-495AD174E88A_1_201_a.jpeg')";
+    
     setTimeout(() => {
         intro.innerHTML = "2...";
+        overlay.style.backgroundImage = "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('AB2FE015-9807-447D-8FA0-5A21FBA51F08_1_105_c.jpeg')";
     }, 1000);
+    
     setTimeout(() => {
         intro.innerHTML = "1...";
+        overlay.style.backgroundImage = "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('FC3EA21D-6A62-480D-9252-495AD174E88A_1_201_a.jpeg')";
     }, 2000);
+    
     setTimeout(() => {
         intro.innerHTML = "GO!!!";
+        overlay.style.backgroundImage = "linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('AB2FE015-9807-447D-8FA0-5A21FBA51F08_1_105_c.jpeg')";
     }, 3000);
+    
     setTimeout(() => {
         document.getElementById("intro-overlay").style.opacity = "0";
         setTimeout(() => {
