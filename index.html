@@ -41,6 +41,102 @@ repeating-linear-gradient(
 z-index:-1;
 }
 
+/* Pre-Intro Page with Mario Kart Background */
+#pre-intro-page {
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==');
+background-size: cover;
+background-position: center;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+z-index: 10000;
+transition: opacity 0.8s ease;
+}
+
+#pre-intro-page.mario-bg {
+background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2ZmZmZmZiIvPjwvc3ZnPg==');
+background-size: cover;
+background-position: center;
+}
+
+.pre-intro-content {
+text-align: center;
+background: rgba(0,0,0,0.8);
+padding: 40px;
+border-radius: 30px;
+border: 5px solid gold;
+max-width: 600px;
+box-shadow: 0 0 40px gold;
+}
+
+.pre-intro-content h1 {
+font-size: 32px;
+color: #ffd700;
+text-shadow: 3px 3px red, 6px 6px black;
+margin-bottom: 20px;
+}
+
+.pre-intro-content p {
+font-size: 24px;
+margin: 20px 0;
+color: #fff;
+}
+
+.question-box {
+background: rgba(255, 192, 203, 0.2);
+border: 3px solid #ff69b4;
+border-radius: 20px;
+padding: 30px;
+margin: 30px 0;
+}
+
+.question-box h2 {
+font-size: 28px;
+color: #ff69b4;
+margin-bottom: 20px;
+text-shadow: 2px 2px black;
+}
+
+.answer-buttons {
+display: flex;
+justify-content: center;
+gap: 20px;
+flex-wrap: wrap;
+}
+
+.answer-btn {
+background: #00c853;
+color: white;
+padding: 15px 30px;
+border: 3px solid gold;
+border-radius: 15px;
+font-size: 20px;
+font-weight: bold;
+cursor: pointer;
+box-shadow: 0 5px #006b2d;
+transition: all 0.3s ease;
+}
+
+.answer-btn:hover {
+transform: scale(1.1);
+}
+
+.answer-btn.yes-grow {
+animation: growYes 0.5s ease forwards;
+}
+
+@keyframes growYes {
+0% { transform: scale(1); }
+50% { transform: scale(1.3); }
+100% { transform: scale(2); }
+}
+
 /* Intro Overlay */
 #intro-overlay{
 position:fixed;
@@ -49,7 +145,7 @@ left:0;
 width:100vw;
 height:100vh;
 background:#111;
-display:flex;
+display:none;
 flex-direction:column;
 justify-content:center;
 align-items:center;
@@ -194,6 +290,23 @@ opacity:0;
 
 <body>
 
+<!-- Pre-Intro Page with Mario Kart Question -->
+<div id="pre-intro-page" class="mario-bg">
+    <div class="pre-intro-content">
+        <h1>🏁 BIRTHDAY SURPRISE 🏁</h1>
+        <p>I know I didn't prepare a card but...</p>
+        
+        <div class="question-box">
+            <h2>Are you... Hella Sensi? 😄</h2>
+            <div class="answer-buttons">
+                <button class="answer-btn" onclick="answerNo()">No</button>
+                <button class="answer-btn" onclick="answerYes()">Yes</button>
+                <button class="answer-btn" id="grow-yes" style="display:none;" onclick="answerYes()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Countdown / Intro Overlay -->
 <div id="intro-overlay">
     <div id="intro-content">
@@ -237,7 +350,7 @@ fun adventures, and amazing memories.
 
     <div id="message-back">
         <h2>💌 A Message For You</h2>
-        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAEAAQADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWm5ybnJ2eoqOkpaanqKmqsrO0tba2uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlbaWmJmaoqOkpaanqKmqsrO0tba2uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/2Q==" alt="Birthday Message Photo" class="message-image">
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAEAAQADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWm5ybnJ2eoqOkpaanqKmqsrO0tba2uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlbaWmJmaoqOkpaanqKmqsrO0tba2uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/2Q==" alt="Birthday Message Photo" class="message-image">
         <p>
         Happy birthday Cloudy, I know I haven't been around you in a while 
         but apart from the up's and down's. 
@@ -273,7 +386,24 @@ Enjoy your birthday and your surprise waiting in the locker 🎁
 </div>
 
 <script>
-function startRace(){
+function answerNo(){
+    // Show the growing "Yes" button
+    document.getElementById('grow-yes').style.display = 'block';
+    document.querySelectorAll('.answer-btn')[0].style.display = 'none'; // Hide "No"
+    document.querySelectorAll('.answer-btn')[1].style.display = 'none'; // Hide first "Yes"
+}
+
+function answerYes(){
+    // Go to countdown
+    document.getElementById('pre-intro-page').style.opacity = '0';
+    setTimeout(() => {
+        document.getElementById('pre-intro-page').style.display = 'none';
+        document.getElementById('intro-overlay').style.display = 'flex';
+        startCountdown();
+    }, 800);
+}
+
+function startCountdown(){
     let intro = document.getElementById("intro-content");
     
     // Play birthday song as Web Audio (no external file needed)
@@ -296,6 +426,10 @@ function startRace(){
             document.getElementById("main-wrapper").style.display = "block";
         }, 800);
     }, 4000);
+}
+
+function startRace(){
+    startCountdown();
 }
 
 function playBirthdayTone(){
