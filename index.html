@@ -184,15 +184,31 @@
       min-height: 100vh;
     }
 
-    h1 {
-      font-size: 55px;
-      color: #ffd700;
-      text-shadow: 4px 4px red, 7px 7px black;
+    .hero h1 {
+      font-size: clamp(46px, 9vw, 88px);
+      font-weight: 900;
+      letter-spacing: 2px;
+      line-height: 1;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #fff7b1, #ffd700, #ff8ad8, #7df9ff, #fff7b1);
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 12px rgba(255, 215, 0, 0.4), 0 0 28px rgba(255, 105, 180, 0.28);
+      animation: titleGlow 2.8s ease-in-out infinite, gradientFlow 6s linear infinite, titleBounce 3.2s ease-in-out infinite;
+      margin-bottom: 14px;
     }
 
     .subtitle {
-      font-size: 25px;
-      margin: 20px;
+      font-size: clamp(22px, 4.8vw, 34px);
+      margin: 20px auto 28px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #fff6c7;
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.4), 0 0 22px rgba(255, 255, 255, 0.2);
+      animation: subtitlePulse 2.4s ease-in-out infinite;
     }
 
     .card,
@@ -374,6 +390,37 @@
     @keyframes glassPulse {
       0%, 100% { box-shadow: 0 12px 45px rgba(0, 0, 0, 0.25); }
       50% { box-shadow: 0 18px 55px rgba(255, 255, 255, 0.2); }
+    }
+
+    @keyframes titleGlow {
+      0%, 100% {
+        filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.4)) drop-shadow(0 0 18px rgba(255, 105, 180, 0.25));
+      }
+      50% {
+        filter: drop-shadow(0 0 16px rgba(255, 215, 0, 0.7)) drop-shadow(0 0 28px rgba(125, 249, 255, 0.35));
+      }
+    }
+
+    @keyframes titleBounce {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-6px) scale(1.02);
+      }
+    }
+
+    @keyframes subtitlePulse {
+      0%, 100% {
+        transform: scale(1);
+        letter-spacing: 3px;
+        opacity: 0.96;
+      }
+      50% {
+        transform: scale(1.04);
+        letter-spacing: 4px;
+        opacity: 1;
+      }
     }
   </style>
 </head>
