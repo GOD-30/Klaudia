@@ -13,6 +13,11 @@
       font-family: "Segoe UI", sans-serif;
     }
 
+    img, video, iframe {
+      max-width: 100%;
+      height: auto;
+    }
+
     :root {
       --gold: #ffd700;
       --gold-soft: rgba(255, 215, 0, 0.75);
@@ -482,7 +487,8 @@
       .card,
       .message-card {
         padding: 22px;
-        margin: 20px 14px;
+        margin: 20px auto;
+        width: calc(100% - 28px);
       }
 
       .hero {
@@ -537,6 +543,36 @@
       .sheep-card h2 {
         line-height: 1.2;
       }
+    }
+
+    #text-size-ctrl {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      z-index: 10001;
+      background: rgba(0, 0, 0, 0.65);
+      border: 1.5px solid rgba(255, 215, 0, 0.55);
+      border-radius: 14px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    #text-size-ctrl label {
+      color: var(--gold);
+      font-size: 13px;
+      white-space: nowrap;
+      font-weight: 600;
+      cursor: default;
+    }
+
+    #text-size-ctrl input[type="range"] {
+      width: 80px;
+      accent-color: var(--gold);
+      cursor: pointer;
     }
   </style>
 </head>
@@ -616,6 +652,12 @@
         </p>
       </div>
     </div>
+  </div>
+
+  <!-- Text Size Control -->
+  <div id="text-size-ctrl">
+    <label for="fontScale">Text size</label>
+    <input id="fontScale" type="range" min="14" max="20" step="1" value="16" aria-label="Adjust text size" />
   </div>
 
   <script>
@@ -726,6 +768,22 @@
 
       setTimeout(() => item.remove(), 5000);
     }, 700);
+
+    // Text size control with localStorage persistence
+    (function () {
+      const slider = document.getElementById('fontScale');
+      const saved = localStorage.getItem('fontSize');
+      const parsedSize = parseInt(saved, 10);
+      if (parsedSize >= 14 && parsedSize <= 20) {
+        document.documentElement.style.fontSize = parsedSize + 'px';
+        slider.value = parsedSize;
+      }
+      slider.addEventListener('input', function (e) {
+        const size = e.target.value;
+        document.documentElement.style.fontSize = size + 'px';
+        localStorage.setItem('fontSize', size);
+      });
+    })();
   </script>
 </body>
 </html>
