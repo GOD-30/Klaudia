@@ -689,7 +689,7 @@
         }
 
         const masterGain = audioContext.createGain();
-        masterGain.gain.value = 0.9;
+        masterGain.gain.value = 1;
         masterGain.connect(audioContext.destination);
 
         const notes = [
@@ -705,14 +705,14 @@
         notes.forEach((note) => {
           const osc = audioContext.createOscillator();
           const gain = audioContext.createGain();
-          osc.type = "triangle";
+          osc.type = "square";
           osc.connect(gain);
           gain.connect(masterGain);
           osc.frequency.value = note.freq;
 
           gain.gain.setValueAtTime(0.0001, currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.35, currentTime + 0.03);
-          gain.gain.exponentialRampToValueAtTime(0.01, currentTime + note.duration);
+          gain.gain.exponentialRampToValueAtTime(0.65, currentTime + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.015, currentTime + note.duration);
 
           osc.start(currentTime);
           osc.stop(currentTime + note.duration);
