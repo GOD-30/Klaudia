@@ -547,36 +547,6 @@
         line-height: 1.2;
       }
     }
-
-    #text-size-ctrl {
-      position: fixed;
-      bottom: 16px;
-      right: 16px;
-      z-index: 10001;
-      background: rgba(0, 0, 0, 0.65);
-      border: 1.5px solid rgba(255, 215, 0, 0.55);
-      border-radius: 14px;
-      padding: 10px 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-    }
-
-    #text-size-ctrl label {
-      color: var(--gold);
-      font-size: 13px;
-      white-space: nowrap;
-      font-weight: 600;
-      cursor: default;
-    }
-
-    #text-size-ctrl input[type="range"] {
-      width: 80px;
-      accent-color: var(--gold);
-      cursor: pointer;
-    }
   </style>
 </head>
 
@@ -657,12 +627,6 @@
     </div>
   </div>
 
-  <!-- Text Size Control -->
-  <div id="text-size-ctrl">
-    <label for="fontScale">Text size</label>
-    <input id="fontScale" type="range" min="14" max="20" step="1" value="16" aria-label="Adjust text size" />
-  </div>
-
   <script>
     let countdownStarted = false;
 
@@ -715,7 +679,19 @@
 
     function playBirthdayTone() {
       try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtx) return;
+
+        const audioContext = new AudioCtx();
+
+        if (audioContext.state === "suspended") {
+          audioContext.resume();
+        }
+
+        const masterGain = audioContext.createGain();
+        masterGain.gain.value = 0.9;
+        masterGain.connect(audioContext.destination);
+
         const notes = [
           { freq: 261.63, duration: 0.3 },
           { freq: 261.63, duration: 0.3 },
@@ -725,21 +701,29 @@
           { freq: 329.63, duration: 1.2 }
         ];
 
-        let currentTime = audioContext.currentTime;
+        let currentTime = audioContext.currentTime + 0.05;
         notes.forEach((note) => {
           const osc = audioContext.createOscillator();
           const gain = audioContext.createGain();
+          osc.type = "triangle";
           osc.connect(gain);
-          gain.connect(audioContext.destination);
+          gain.connect(masterGain);
           osc.frequency.value = note.freq;
-          gain.gain.setValueAtTime(0.3, currentTime);
+
+          gain.gain.setValueAtTime(0.0001, currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.35, currentTime + 0.03);
           gain.gain.exponentialRampToValueAtTime(0.01, currentTime + note.duration);
+
           osc.start(currentTime);
           osc.stop(currentTime + note.duration);
           currentTime += note.duration;
         });
+
+        setTimeout(() => {
+          audioContext.close();
+        }, Math.ceil((currentTime - audioContext.currentTime) * 1000) + 300);
       } catch (e) {
-        console.log("Audio not available");
+        console.log("Audio not available", e);
       }
     }
 
@@ -771,22 +755,6 @@
 
       setTimeout(() => item.remove(), 5000);
     }, 700);
-
-    // Text size control with localStorage persistence
-    (function () {
-      const slider = document.getElementById('fontScale');
-      const saved = localStorage.getItem('fontSize');
-      const parsedSize = parseInt(saved, 10);
-      if (parsedSize >= 14 && parsedSize <= 20) {
-        document.documentElement.style.fontSize = parsedSize + 'px';
-        slider.value = parsedSize;
-      }
-      slider.addEventListener('input', function (e) {
-        const size = e.target.value;
-        document.documentElement.style.fontSize = size + 'px';
-        localStorage.setItem('fontSize', size);
-      });
-    })();
   </script>
 </body>
 </html>
